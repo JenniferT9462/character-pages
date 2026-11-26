@@ -23,11 +23,15 @@ async function loadPage() {
 
     const data = await response.json();
     console.log(data);
+    let totalPages = Math.ceil(data.info.count / 20);
+    console.log(totalPages);
+    pageLabel.textContent = `Page ${page} of ${totalPages}`;
+    nextButton.disabled = page === 42;
+    prevButton.disabled = page === 1;
 
     statusText.textContent = "";
 
     showCards(data.results);
-
   } catch (error) {
     console.log(error);
     statusText.textContent =
@@ -36,67 +40,51 @@ async function loadPage() {
 }
 
 function nextPage() {
-   page = page + 1;
-   loadPage() 
+  page = page + 1;
+  loadPage();
 }
 nextButton.addEventListener("click", nextPage);
 
 function prevPage() {
-    page = page -1;
-    loadPage();
+  page = page - 1;
+  loadPage();
 }
 prevButton.addEventListener("click", prevPage);
 
-
-
-
 function showCards(characters) {
-    characters.forEach(function (character){
-        const column = document.createElement("div");
-        column.className = "col-6 col-md-4 col-lg-3";
+  characters.forEach(function (character) {
+    const column = document.createElement("div");
+    column.className = "col-6 col-md-4 col-lg-3";
 
-        const card = document.createElement("div");
-        card.className = "card h-100 p-2";
+    const card = document.createElement("div");
+    card.className = "card h-100 p-2";
 
-        const picture = document.createElement("img");
-        picture.src = character.image;
-        picture.alt = character.name;
-        picture.className = "img-fluid rounded mb-2";
+    const picture = document.createElement("img");
+    picture.src = character.image;
+    picture.alt = character.name;
+    picture.className = "img-fluid rounded mb-2";
 
-        card.appendChild(picture);
+    card.appendChild(picture);
 
-        const name = document.createElement("h3");
-        name.className = "h6";
-        name.textContent = character.name;
+    const name = document.createElement("h3");
+    name.className = "h6";
+    name.textContent = character.name;
 
-        card.appendChild(name);
+    card.appendChild(name);
 
-        const info = document.createElement("p");
-        info.className = "small mb-0";
-        info.textContent = `${character.species} - ${character.status}`;
+    const info = document.createElement("p");
+    info.className = "small mb-0";
+    info.textContent = `${character.species} - ${character.status}`;
 
-        card.appendChild(info);
+    card.appendChild(info);
 
-        if(character.status === "Dead") {
-            card.classList.add("dead");
-        }
+    if (character.status === "Dead") {
+      card.classList.add("dead");
+    }
 
-        column.appendChild(card);
-        results.appendChild(column);
-
-
-    })
+    column.appendChild(card);
+    results.appendChild(column);
+  });
 }
-
-
-
-
-
-
-
-
-
-
-
 
 loadPage();
