@@ -95,7 +95,7 @@ function showCards(characters) {
       }
     });
     card.appendChild(toggle);
-    classList.contains("dead");
+    // classList.contains("dead");
 
     column.appendChild(card);
     results.appendChild(column);
