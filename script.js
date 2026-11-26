@@ -35,6 +35,21 @@ async function loadPage() {
   }
 }
 
+function nextPage() {
+   page = page + 1;
+   loadPage() 
+}
+nextButton.addEventListener("click", nextPage);
+
+function prevPage() {
+    page = page -1;
+    loadPage();
+}
+prevButton.addEventListener("click", prevPage);
+
+
+
+
 function showCards(characters) {
     characters.forEach(function (character){
         const column = document.createElement("div");
