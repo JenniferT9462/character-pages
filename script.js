@@ -24,6 +24,7 @@ async function loadPage() {
     const data = await response.json();
     console.log(data);
 
+    const totalPages = Math.ceil(data.info.count / 20);
     console.log(totalPages);
     pageLabel.textContent = `Page ${page} of ${totalPages}`;
     nextButton.disabled = page === 42;
